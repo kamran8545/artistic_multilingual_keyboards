@@ -13,4 +13,14 @@ enum KeyTypes{
   spaceKey,
   doneKey,
   newLineKey,
+  nextKey,
+  backSpace,
+  numericKeyboard,
+}
+
+
+enum KeyboardAction {
+  actionDone,
+  actionNewLine,
+  actionNext,
 }

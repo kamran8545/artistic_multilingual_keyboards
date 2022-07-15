@@ -15,21 +15,27 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyWidget(),
+      home: MyWidget(),
     );
   }
 }
 
 class MyWidget extends StatelessWidget {
-  const MyWidget({Key? key}) : super(key: key);
-
+  MyWidget({Key? key}) : super(key: key);
+  TextEditingController textEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
           const SizedBox(height: 200,),
+          TextField(
+            controller: textEditingController,
+            readOnly: true,
+            showCursor: true,
+          ),
           MultiLingualKeyboard(
+            textEditingController: textEditingController,
             // keyboardBackgroundColor: Colors.lightGreen,
           )
           // TextField(),
