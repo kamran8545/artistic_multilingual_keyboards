@@ -5,9 +5,9 @@ import 'package:multi_lingual_keyboard/utils/languages_alphabets.dart';
 import '../utils/keyboards_types.dart';
 
 class MultiLingualKeyboard extends StatefulWidget {
-  List<String> keys = [];
+  KeyboardsTypes currentKeyboardsType;
+  KeyboardLanguages currentKeyboardLanguage;
   final TextEditingController textEditingController;
-  KeyboardsTypes keyboardsType;
   final Color keyTextBackgroundColor;
   final Color keysBackgroundColor;
   final Color keyboardBackgroundColor;
@@ -19,7 +19,8 @@ class MultiLingualKeyboard extends StatefulWidget {
     Key? key,
     // this.keys:const [],
     required this.textEditingController,
-    this.keyboardsType: KeyboardsTypes.englishLowerCase,
+    this.currentKeyboardsType: KeyboardsTypes.englishUpperCase,
+    this.currentKeyboardLanguage = KeyboardLanguages.english,
     this.keyTextBackgroundColor :Colors.black,
     this.keysBackgroundColor:Colors.white,
     this.keyboardBackgroundColor = Colors.white70,
@@ -34,32 +35,70 @@ class MultiLingualKeyboard extends StatefulWidget {
 }
 
 class _MultiLingualKeyboardState extends State<MultiLingualKeyboard> {
+  List<String> keys = [];
+
+  @override
+  void initState() {
+    super.initState();
+    setKeyboardKeys();
+  }
+
   @override
   Widget build(BuildContext context) {
-    setKeyboardKeys();
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height*.3,
       color: widget.keyboardBackgroundColor,
       padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          _getKeyboardRow(list: widget.keys.sublist(0,10),horizontalPadding: 10),
-          _getKeyboardRow(list: widget.keys.sublist(10,19),horizontalPadding: 20),
-          _getKeyboardThirdRow(),
-          _getKeyboardLastRow(),
-        ],
-      ),
+      /// Checking if keys list is empty then don't show keyboard
+      child: keys.isNotEmpty?
+      /// Checking keyboard types whether its numeric or alphabetic
+        widget.currentKeyboardsType == KeyboardsTypes.numericKeyboard?
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              _getKeyboardRow(list: keys.sublist(0,4),horizontalPadding: 10),
+              _getKeyboardRow(list: keys.sublist(4,8),horizontalPadding: 10),
+              _getNumericKeyboardThirdRow(),
+              _getNumericKeyboardLastRow(),
+            ],
+          )
+          :Column(
+            children: [
+              _getKeyboardRow(list: keys.sublist(0,10),horizontalPadding: 10),
+              _getKeyboardRow(list: keys.sublist(10,19),horizontalPadding: 20),
+              _getKeyboardThirdRow(),
+              _getKeyboardLastRow(),
+            ],
+          ):
+
+      const Center(child: Text("No alphabet found for keyboard")),
     );
   }
 
   void setKeyboardKeys(){
-    if(widget.keyboardsType == KeyboardsTypes.englishLowerCase){
-      widget.keys = englishLowerCaseAlphabetsQWERTY;
-    }else if(widget.keyboardsType == KeyboardsTypes.englishUpperCase){
-      widget.keys = englishUpperCaseAlphabetsQWERTY;
-    }
+    print("000000000000000000000000000000 >>>>>>>>>>>>><<<<<<<<<<< setKeyboardsKeys");
+    if(widget.currentKeyboardLanguage == KeyboardLanguages.english){
+      if(widget.currentKeyboardsType == KeyboardsTypes.englishLowerCase){
+        widget.currentKeyboardsType = KeyboardsTypes.englishUpperCase;
+        keys = englishLowerCaseAlphabetsQWERTY;
+      }else /*if(widget.currentKeyboardsType == KeyboardsTypes.englishUpperCase)*/{
+        widget.currentKeyboardsType = KeyboardsTypes.englishLowerCase;
+        keys = englishUpperCaseAlphabetsQWERTY;
+      }
+    }else if(widget.currentKeyboardLanguage == KeyboardLanguages.urdu){
+      if(widget.currentKeyboardsType == KeyboardsTypes.urduKeyboard1){
+        keys = urduAlphabets2;
+        widget.currentKeyboardsType = KeyboardsTypes.urduKeyboard2;
+      }else/* if(widget.currentKeyboardsType == KeyboardsTypes.urduKeyboard2)*/{
+        keys = urduAlphabets1;
+        widget.currentKeyboardsType = KeyboardsTypes.urduKeyboard1;
+      }
+    }/*else if(widget.currentKeyboardLanguage == KeyboardLanguages.numeric){
+      keys = numericKeyboardAlphabet;
+      widget.currentKeyboardsType = KeyboardsTypes.numericKeyboard;
+      print("000000000000000000000000000000 >>>>>>>>>>>>><<<<<<<<<<< setKeyboardsKeys else1");
+    }*/
   }
 
   Widget _getKeyboardRow({required List<String> list,required double horizontalPadding}){
@@ -77,7 +116,7 @@ class _MultiLingualKeyboardState extends State<MultiLingualKeyboard> {
   }
 
   Widget _getKeyboardThirdRow(){
-    List list = widget.keys.sublist(19,widget.keys.length);
+    List list = keys.sublist(19,keys.length);
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -94,7 +133,7 @@ class _MultiLingualKeyboardState extends State<MultiLingualKeyboard> {
   }
 
   Widget _getKeyboardLastRow(){
-    List<String> keyboardLastRow = ["123","Space"];
+    List<String> keyboardLastRow = ["123","Languages","Space"];
     if(widget.keyboardAction == KeyboardAction.actionDone){
       keyboardLastRow.add("Done");
     }else if(widget.keyboardAction == KeyboardAction.actionNewLine){
@@ -106,13 +145,51 @@ class _MultiLingualKeyboardState extends State<MultiLingualKeyboard> {
       child: Row(
         children: [
           _getKey(keyText: keyboardLastRow[0],buttonFlex: 2,keyType: KeyTypes.numericKeyboard),
-          _getKey(keyText: keyboardLastRow[1],buttonFlex: 6,keyType: KeyTypes.spaceKey),
-          _getKey(keyText: keyboardLastRow[2],buttonFlex: 2,
+          _getKey(keyText: keyboardLastRow[1],buttonFlex: 2,keyType: KeyTypes.changeLanguageKey),
+          _getKey(keyText: keyboardLastRow[2],buttonFlex: 7,keyType: KeyTypes.spaceKey),
+          _getKey(keyText: keyboardLastRow[3],buttonFlex: 2,
             keyType: widget.keyboardAction == KeyboardAction.actionNext?KeyTypes.nextKey:
             widget.keyboardAction == KeyboardAction.actionNewLine?KeyTypes.newLineKey:
             KeyTypes.doneKey,
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _getNumericKeyboardThirdRow(){
+    List<String> keyboardLastRow = keys.sublist(8,11);
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        child: Row(
+          children: [
+            for(var x in keyboardLastRow)
+              _getKey(keyText: x,buttonFlex: 2,),
+            _getKey(keyText: "",keyType: KeyTypes.backSpace,buttonFlex: 2,),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _getNumericKeyboardLastRow(){
+    List<String> keyboardLastRow = keys.sublist(11);
+    if(widget.keyboardAction == KeyboardAction.actionDone){
+      keyboardLastRow.add("Done");
+    }else if(widget.keyboardAction == KeyboardAction.actionNext){
+      keyboardLastRow.add("Next");
+    }
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        child: Row(
+          children: [
+            _getKey(keyText: "123",keyType: KeyTypes.numericKeyboard,buttonFlex: 2,),
+            for(var x in keyboardLastRow)
+              _getKey(keyText: x,buttonFlex: 2,),
+          ],
+        ),
       ),
     );
   }
@@ -138,21 +215,22 @@ class _MultiLingualKeyboardState extends State<MultiLingualKeyboard> {
               keyType == KeyTypes.nextKey?Icons.arrow_forward:
               keyType == KeyTypes.newLineKey?Icons.subdirectory_arrow_left_rounded:
               keyType == KeyTypes.changeKeyboardKey?CupertinoIcons.arrow_up_circle:
+              keyType == KeyTypes.changeLanguageKey?CupertinoIcons.globe:
               keyType == KeyTypes.backSpace?CupertinoIcons.delete_left:
               Icons.done,
             size: 23,
             color: Colors.black,
           ),
-          onPressed: (){
+          onPressed: (keyType == KeyTypes.textKey && keyText.isEmpty)?null:(){
             _onKeyPressed(keyText: keyText, keyType: keyType);
           },
           style: ElevatedButton.styleFrom(
               elevation: 0,
               // shadowColor: Colors.white,
-              primary: widget.keysBackgroundColor,
+              primary: Colors.green,//widget.keysBackgroundColor,
               maximumSize: Size.infinite,
               // minimumSize: Size.zero, // Set this
-              padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 0,vertical: 12),
               // tapTargetSize: MaterialTapTargetSize.padded// and this
           ),
         ),
@@ -161,12 +239,11 @@ class _MultiLingualKeyboardState extends State<MultiLingualKeyboard> {
   }
 
   void _onKeyPressed({required String keyText,required KeyTypes keyType,}){
-    if(KeyTypes.spaceKey == keyType){
-      keyText = " ";
-    }
-
 
     if(keyType == KeyTypes.textKey || keyType == KeyTypes.spaceKey){
+      if(KeyTypes.spaceKey == keyType){
+        keyText = " ";
+      }
       _onTextChanged(changedText: keyText);
     }else{
       _onIconKeyPressed(keyType: keyType);
@@ -211,18 +288,27 @@ class _MultiLingualKeyboardState extends State<MultiLingualKeyboard> {
       _onBackSpacePressed();
     }else if(keyType == KeyTypes.changeKeyboardKey){
       /// Switch between keyboards of same language
-      _changeKeyboardOfSameLanguage();
+      setState(() {
+        setKeyboardKeys();
+      });
+      // _changeKeyboardOfSameLanguage();
+    }else if(keyType == KeyTypes.changeLanguageKey){
+      /// Switch Keyboard Language
+      _onKeyboardLanguageChange();
     }else if(keyType == KeyTypes.numericKeyboard){
       /// Change Keyboard to numeric here
+      setState(() {
+        if(widget.currentKeyboardsType == KeyboardsTypes.numericKeyboard){
+          keys = englishUpperCaseAlphabetsQWERTY;
+          widget.currentKeyboardsType = KeyboardsTypes.englishUpperCase;
+        }else{
+          keys = numericKeyboardAlphabet;
+          widget.currentKeyboardsType = KeyboardsTypes.numericKeyboard;
+        }
+      });
     }else if(keyType == KeyTypes.newLineKey){
       _onNewLineKeyPressed();
-    }/*else if(event == ICON_KEY_EVENTS.FIRST_SYMBOLIC_KEYBOARD){
-
-    }else if(event == ICON_KEY_EVENTS.SECOND_SYMBOLIC_KEYBOARD){
-      setState(() {
-        widget.keyboardType = KEYBOARD_TYPES.SecondSymbolic;
-      });
-    }*/
+    }
   }
 
   void _onBackSpacePressed(){
@@ -271,13 +357,30 @@ class _MultiLingualKeyboardState extends State<MultiLingualKeyboard> {
     widget.textEditingController.selection = textSelection;
   }
 
-  void _changeKeyboardOfSameLanguage(){
+  /*void _changeKeyboardOfSameLanguage(){
     setState(() {
-      if(widget.keyboardsType == KeyboardsTypes.englishUpperCase){
-        widget.keyboardsType = KeyboardsTypes.englishLowerCase;
-      }else if(widget.keyboardsType == KeyboardsTypes.englishLowerCase){
-        widget.keyboardsType = KeyboardsTypes.englishUpperCase;
+      if(widget.currentKeyboardsType == KeyboardsTypes.englishUpperCase){
+        widget.currentKeyboardsType = KeyboardsTypes.englishLowerCase;
+      }else if(widget.currentKeyboardsType == KeyboardsTypes.englishLowerCase){
+        widget.currentKeyboardsType = KeyboardsTypes.englishUpperCase;
+      }else if(widget.currentKeyboardsType == KeyboardsTypes.englishLowerCase){
+        widget.currentKeyboardsType = KeyboardsTypes.englishUpperCase;
+      }else if(widget.currentKeyboardsType == KeyboardsTypes.englishLowerCase){
+        widget.currentKeyboardsType = KeyboardsTypes.englishUpperCase;
       }
+    });
+  }*/
+
+  void _onKeyboardLanguageChange(){
+    List languagesList = KeyboardLanguages.values;
+    int updatedLanguageIndex = languagesList.indexOf(widget.currentKeyboardLanguage)+1;
+    setState(() {
+      if(updatedLanguageIndex >= languagesList.length){
+        widget.currentKeyboardLanguage = languagesList[0];
+      }else{
+        widget.currentKeyboardLanguage = languagesList[updatedLanguageIndex];
+      }
+      setKeyboardKeys();
     });
   }
 }

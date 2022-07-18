@@ -1,8 +1,17 @@
 
+enum KeyboardLanguages {
+  english,
+  urdu,
+  // sindhi,
+  // numeric,
+}
 
 enum KeyboardsTypes {
   englishUpperCase,
   englishLowerCase,
+  urduKeyboard1,
+  urduKeyboard2,
+  numericKeyboard,
 }
 
 
