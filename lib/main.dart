@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
 class MyWidget extends StatelessWidget {
   MyWidget({Key? key}) : super(key: key);
   TextEditingController textEditingController = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,6 +34,8 @@ class MyWidget extends StatelessWidget {
             controller: textEditingController,
             readOnly: true,
             showCursor: true,
+            textAlign: TextAlign.start,
+            // scrollController: _scrollController,
           ),
           MultiLingualKeyboard(
             textEditingController: textEditingController,
