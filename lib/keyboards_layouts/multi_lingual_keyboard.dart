@@ -5,13 +5,13 @@ import 'package:multi_lingual_keyboard/utils/languages_alphabets.dart';
 import '../utils/keyboards_types.dart';
 
 class MultiLingualKeyboard extends StatefulWidget {
-  KeyboardsTypes currentKeyboardsType;
+  late KeyboardsTypes currentKeyboardsType;
   KeyboardLanguages currentKeyboardLanguage;
   final TextEditingController textEditingController;
-  final Color keyTextBackgroundColor;
   final Color keysBackgroundColor;
   final Color keyboardBackgroundColor;
-  final List<BoxShadow> keysShadow;
+  final double keyElevation;
+  final Color keyShadowColor;
   BorderRadius? keyBorderRadius;
   final TextStyle keyTextStyle;
   final KeyboardAction keyboardAction;
@@ -19,16 +19,26 @@ class MultiLingualKeyboard extends StatefulWidget {
     Key? key,
     // this.keys:const [],
     required this.textEditingController,
-    this.currentKeyboardsType: KeyboardsTypes.englishUpperCase,
+    // this.currentKeyboardsType/*: KeyboardsTypes.englishUpperCase*/,
     this.currentKeyboardLanguage = KeyboardLanguages.english,
-    this.keyTextBackgroundColor :Colors.black,
     this.keysBackgroundColor:Colors.white,
     this.keyboardBackgroundColor = Colors.white70,
-    this.keysShadow: const [/*BoxShadow(color: Colors.grey,spreadRadius: 0.5,blurRadius: 0.5)*/],
+    this.keyElevation:0,
+    this.keyShadowColor:Colors.black,
     this.keyBorderRadius,
     this.keyTextStyle : const TextStyle(color: Colors.black,fontSize: 15),
     this.keyboardAction:KeyboardAction.actionDone,
-  }) : super(key: key);
+  }) : super(key: key){
+    if(currentKeyboardLanguage == KeyboardLanguages.english){
+      currentKeyboardsType = KeyboardsTypes.englishLowerCase;
+    }else if(currentKeyboardLanguage == KeyboardLanguages.urdu){
+      currentKeyboardsType = KeyboardsTypes.urduKeyboard2;
+    }else if(currentKeyboardLanguage == KeyboardLanguages.sindhi){
+      currentKeyboardsType = KeyboardsTypes.sindhiKeyboard2;
+    }else if(currentKeyboardLanguage == KeyboardLanguages.symbolic){
+      currentKeyboardsType = KeyboardsTypes.symbolic2;
+    }
+  }
 
   @override
   State<MultiLingualKeyboard> createState() => _MultiLingualKeyboardState();
@@ -42,7 +52,7 @@ class _MultiLingualKeyboardState extends State<MultiLingualKeyboard> {
   @override
   void initState() {
     super.initState();
-    setKeyboardKeys();
+    setKeyboardKeys(inverseKeys: false);
   }
 
   @override
@@ -79,12 +89,11 @@ class _MultiLingualKeyboardState extends State<MultiLingualKeyboard> {
   }
 
   void setKeyboardKeys({bool inverseKeys = true}){
-    print("000000000000000000000000000000 >>>>>>>>>>>>><<<<<<<<<<< setKeyboardsKeys");
     if(widget.currentKeyboardLanguage == KeyboardLanguages.english){
       if(widget.currentKeyboardsType == KeyboardsTypes.englishLowerCase){
         widget.currentKeyboardsType = inverseKeys?KeyboardsTypes.englishUpperCase:KeyboardsTypes.englishLowerCase;
         keys = inverseKeys?englishLowerCaseAlphabetsQWERTY:englishUpperCaseAlphabetsQWERTY;
-      }else /*if(widget.currentKeyboardsType == KeyboardsTypes.englishUpperCase)*/{
+      }else {
         widget.currentKeyboardsType = inverseKeys?KeyboardsTypes.englishLowerCase:KeyboardsTypes.englishUpperCase;
         keys = inverseKeys?englishUpperCaseAlphabetsQWERTY:englishLowerCaseAlphabetsQWERTY;
       }
@@ -92,7 +101,7 @@ class _MultiLingualKeyboardState extends State<MultiLingualKeyboard> {
       if(widget.currentKeyboardsType == KeyboardsTypes.urduKeyboard1){
         keys = inverseKeys?urduAlphabets2:urduAlphabets1;
         widget.currentKeyboardsType = inverseKeys?KeyboardsTypes.urduKeyboard2:KeyboardsTypes.urduKeyboard1;
-      }else/* if(widget.currentKeyboardsType == KeyboardsTypes.urduKeyboard2)*/{
+      }else{
         keys = inverseKeys?urduAlphabets1:urduAlphabets2;
         widget.currentKeyboardsType = inverseKeys?KeyboardsTypes.urduKeyboard1:KeyboardsTypes.urduKeyboard2;
       }
@@ -113,9 +122,6 @@ class _MultiLingualKeyboardState extends State<MultiLingualKeyboard> {
         widget.currentKeyboardsType = KeyboardsTypes.symbolic1;
       }
     }
-    print("000000000000000000000000000000 >>>>>>>>>>>>>><<<<<<<< curentKeyLan : ${widget.currentKeyboardLanguage},"
-        " currentKyetype : ${widget.currentKeyboardsType}");
-
   }
 
   Widget _getKeyboardRow({required List<String> list,required double horizontalPadding}){
@@ -139,7 +145,7 @@ class _MultiLingualKeyboardState extends State<MultiLingualKeyboard> {
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Row(
           children: [
-            _getKey(keyText: /*(previousKeyboardType != null && previousKeyboardType == KeyboardsTypes.symbolic)?"+/=":*/"",
+            _getKey(keyText: _getSecondaryKeyboardKeyText(),
                 keyType: /*(previousKeyboardType != null)?KeyTypes.symbolic1:*/KeyTypes.changeKeyboardKey,buttonFlex: 3),
             for(String keyT in list)
               _getKey(keyText: keyT,buttonFlex: 2),
@@ -225,11 +231,10 @@ class _MultiLingualKeyboardState extends State<MultiLingualKeyboard> {
         //   boxShadow: keysShadow
         // ),
         child: ElevatedButton(
-          child:(keyType == KeyTypes.textKey || keyType == KeyTypes.spaceKey || keyType == KeyTypes.numericKeyboard
-              /*|| keyType == KeyTypes.symbolic1 || keyType == KeyTypes.symbolic2*/)?
+          child:(keyType == KeyTypes.textKey || keyType == KeyTypes.spaceKey || keyType == KeyTypes.numericKeyboard ||
+              (keyText.isNotEmpty && keyType == KeyTypes.changeKeyboardKey && widget.currentKeyboardLanguage != KeyboardLanguages.english))?
           Text(
-            /*( keyType == KeyTypes.symbolic1)?"+/=":
-            keyType == KeyTypes.symbolic2?"@#&":*/keyText,
+            keyText,
             textAlign: TextAlign.center,
             style: widget.keyTextStyle,
           ):Icon(
@@ -240,15 +245,16 @@ class _MultiLingualKeyboardState extends State<MultiLingualKeyboard> {
               keyType == KeyTypes.backSpace?CupertinoIcons.delete_left:
               Icons.done,
             size: 23,
-            color: Colors.black,
+            color: widget.keyTextStyle.color,
           ),
           onPressed: (keyType == KeyTypes.textKey && keyText.isEmpty)?null:(){
             _onKeyPressed(keyText: keyText, keyType: keyType);
           },
           style: ElevatedButton.styleFrom(
-              elevation: 0,
-              // shadowColor: Colors.white,
-              primary: Colors.green,//widget.keysBackgroundColor,
+            shape: RoundedRectangleBorder(borderRadius: widget.keyBorderRadius??BorderRadius.circular(0)),
+              elevation: widget.keyElevation,
+              shadowColor: widget.keyShadowColor,
+              primary: widget.keysBackgroundColor,
               maximumSize: Size.infinite,
               // minimumSize: Size.zero, // Set this
               padding: const EdgeInsets.symmetric(horizontal: 0,vertical: 12),
@@ -257,6 +263,23 @@ class _MultiLingualKeyboardState extends State<MultiLingualKeyboard> {
         ),
       ),
     );
+  }
+
+  String _getSecondaryKeyboardKeyText(){
+    if(widget.currentKeyboardLanguage == KeyboardLanguages.urdu && widget.currentKeyboardsType == KeyboardsTypes.urduKeyboard1){
+      return "ژ ڑ ذ";
+    }else if(widget.currentKeyboardLanguage == KeyboardLanguages.urdu && widget.currentKeyboardsType == KeyboardsTypes.urduKeyboard2){
+      return "ا ب پ";
+    }else if(widget.currentKeyboardLanguage == KeyboardLanguages.sindhi && widget.currentKeyboardsType == KeyboardsTypes.sindhiKeyboard1){
+      return "ڙ ڏ ڊ";
+    }else if(widget.currentKeyboardLanguage == KeyboardLanguages.sindhi && widget.currentKeyboardsType == KeyboardsTypes.sindhiKeyboard2){
+      return "ا ب پ";
+    }else if(widget.currentKeyboardLanguage == KeyboardLanguages.symbolic && widget.currentKeyboardsType == KeyboardsTypes.symbolic1){
+      return "+/-";
+    }else if(widget.currentKeyboardLanguage == KeyboardLanguages.symbolic && widget.currentKeyboardsType == KeyboardsTypes.symbolic2){
+      return "!@#";
+    }
+    return "";
   }
 
   void _onKeyPressed({required String keyText,required KeyTypes keyType,}){
@@ -304,7 +327,6 @@ class _MultiLingualKeyboardState extends State<MultiLingualKeyboard> {
   }
 
   void _onIconKeyPressed({required KeyTypes keyType}){
-    print("0000000000000000>>>>>>>>>>>>>>>><<<<<<<<<<<<< 11 ${keyType}, ${previousKeyboardType}");
     if(keyType == KeyTypes.backSpace){
       _onBackSpacePressed();
     }else if(keyType == KeyTypes.changeKeyboardKey){
@@ -385,21 +407,15 @@ class _MultiLingualKeyboardState extends State<MultiLingualKeyboard> {
     widget.textEditingController.selection = textSelection;
   }
 
-  /*void _changeKeyboardOfSameLanguage(){
-    setState(() {
-      if(widget.currentKeyboardsType == KeyboardsTypes.englishUpperCase){
-        widget.currentKeyboardsType = KeyboardsTypes.englishLowerCase;
-      }else if(widget.currentKeyboardsType == KeyboardsTypes.englishLowerCase){
-        widget.currentKeyboardsType = KeyboardsTypes.englishUpperCase;
-      }else if(widget.currentKeyboardsType == KeyboardsTypes.englishLowerCase){
-        widget.currentKeyboardsType = KeyboardsTypes.englishUpperCase;
-      }else if(widget.currentKeyboardsType == KeyboardsTypes.englishLowerCase){
-        widget.currentKeyboardsType = KeyboardsTypes.englishUpperCase;
-      }
-    });
-  }*/
-
   void _onKeyboardLanguageChange(){
+    if(widget.currentKeyboardLanguage == KeyboardLanguages.symbolic
+        && previousKeyboardLanguages != null && previousKeyboardType != null){
+      widget.currentKeyboardsType = previousKeyboardType!;
+      widget.currentKeyboardLanguage = previousKeyboardLanguages!;
+      previousKeyboardLanguages = null;
+      previousKeyboardType = null;
+    }
+
     List languagesList = List.from(KeyboardLanguages.values);
     languagesList.remove(KeyboardLanguages.symbolic);
     int updatedLanguageIndex = languagesList.indexOf(widget.currentKeyboardLanguage)+1;

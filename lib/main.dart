@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:multi_lingual_keyboard/keyboards_layouts/multi_lingual_keyboard.dart';
+import 'package:multi_lingual_keyboard/utils/keyboards_types.dart';
 
 void main() {
   runApp(const MyApp());
@@ -39,7 +40,14 @@ class MyWidget extends StatelessWidget {
           ),
           MultiLingualKeyboard(
             textEditingController: textEditingController,
-            // keyboardBackgroundColor: Colors.lightGreen,
+            keyboardBackgroundColor: Colors.green,
+            keysBackgroundColor: Colors.red,
+            keyTextStyle: const TextStyle(color: Colors.white),
+            keyElevation: 15,
+            keyShadowColor: Colors.black,
+            keyBorderRadius: BorderRadius.circular(10),
+            keyboardAction: KeyboardAction.actionNewLine,
+            currentKeyboardLanguage: KeyboardLanguages.english,
           )
           // TextField(),
         ],
