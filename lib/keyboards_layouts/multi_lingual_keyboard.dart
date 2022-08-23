@@ -4,16 +4,27 @@ import 'package:multi_lingual_keyboard/utils/languages_alphabets.dart';
 
 import '../utils/keyboards_types.dart';
 
+/// keyboard Widget
 class MultiLingualKeyboard extends StatefulWidget {
+  /// Current keyboard type
   late KeyboardsTypes currentKeyboardsType;
+  /// Current keyboard Language
   KeyboardLanguages currentKeyboardLanguage;
+  /// Text Editing Controller of TextField
   final TextEditingController textEditingController;
+  /// Keys background color
   final Color keysBackgroundColor;
+  /// Keyboard background color
   final Color keyboardBackgroundColor;
+  /// Key elevation
   final double keyElevation;
+  /// Key shadow color
   final Color keyShadowColor;
+  /// Key border radius
   BorderRadius? keyBorderRadius;
+  /// Key Text Style
   final TextStyle keyTextStyle;
+  /// Keyboard Action
   final KeyboardAction keyboardAction;
   MultiLingualKeyboard({
     Key? key,
@@ -29,6 +40,7 @@ class MultiLingualKeyboard extends StatefulWidget {
     this.keyTextStyle : const TextStyle(color: Colors.black,fontSize: 15),
     this.keyboardAction:KeyboardAction.actionDone,
   }) : super(key: key){
+    /// Setting Keyboard type according to current language
     if(currentKeyboardLanguage == KeyboardLanguages.english){
       currentKeyboardsType = KeyboardsTypes.englishLowerCase;
     }else if(currentKeyboardLanguage == KeyboardLanguages.urdu){
@@ -57,6 +69,7 @@ class _MultiLingualKeyboardState extends State<MultiLingualKeyboard> {
 
   @override
   Widget build(BuildContext context) {
+    /// Keyboard Design
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height*.3,
@@ -88,6 +101,7 @@ class _MultiLingualKeyboardState extends State<MultiLingualKeyboard> {
     );
   }
 
+  /// Setting Keyboard Keys according to selected language
   void setKeyboardKeys({bool inverseKeys = true}){
     if(widget.currentKeyboardLanguage == KeyboardLanguages.english){
       if(widget.currentKeyboardsType == KeyboardsTypes.englishLowerCase){
@@ -124,6 +138,7 @@ class _MultiLingualKeyboardState extends State<MultiLingualKeyboard> {
     }
   }
 
+  /// Returns Keyboards Row
   Widget _getKeyboardRow({required List<String> list,required double horizontalPadding}){
     return Expanded(
       child: Padding(
@@ -138,6 +153,7 @@ class _MultiLingualKeyboardState extends State<MultiLingualKeyboard> {
     );
   }
 
+  /// Returns 3rd Row of Keyboards
   Widget _getKeyboardThirdRow(){
     List list = keys.sublist(19,keys.length);
     return Expanded(
@@ -156,6 +172,7 @@ class _MultiLingualKeyboardState extends State<MultiLingualKeyboard> {
     );
   }
 
+  /// Returns Last Row of All Keyboards
   Widget _getKeyboardLastRow(){
     List<String> keyboardLastRow = ["123","Languages","Space"];
     if(widget.keyboardAction == KeyboardAction.actionDone){
@@ -181,6 +198,7 @@ class _MultiLingualKeyboardState extends State<MultiLingualKeyboard> {
     );
   }
 
+  /// Returns 3rd Row of Numeric Keyboards
   Widget _getNumericKeyboardThirdRow(){
     List<String> keyboardLastRow = keys.sublist(8,11);
     return Expanded(
@@ -197,6 +215,7 @@ class _MultiLingualKeyboardState extends State<MultiLingualKeyboard> {
     );
   }
 
+  /// Returns Last Row of Numeric Keyboards
   Widget _getNumericKeyboardLastRow(){
     List<String> keyboardLastRow = keys.sublist(11);
     if(widget.keyboardAction == KeyboardAction.actionDone){
@@ -218,6 +237,7 @@ class _MultiLingualKeyboardState extends State<MultiLingualKeyboard> {
     );
   }
 
+  /// Returns Single key of all alphabets
   Widget _getKey({required String keyText,KeyTypes keyType = KeyTypes.textKey, int buttonFlex = 1}){
     return Expanded(
       flex: buttonFlex,
@@ -265,6 +285,7 @@ class _MultiLingualKeyboardState extends State<MultiLingualKeyboard> {
     );
   }
 
+  /// Returns Key Text for secondary keyboard
   String _getSecondaryKeyboardKeyText(){
     if(widget.currentKeyboardLanguage == KeyboardLanguages.urdu && widget.currentKeyboardsType == KeyboardsTypes.urduKeyboard1){
       return "ژ ڑ ذ";
@@ -282,8 +303,8 @@ class _MultiLingualKeyboardState extends State<MultiLingualKeyboard> {
     return "";
   }
 
+  /// Listener handles key pressed event
   void _onKeyPressed({required String keyText,required KeyTypes keyType,}){
-
     if(keyType == KeyTypes.textKey || keyType == KeyTypes.spaceKey){
       if(KeyTypes.spaceKey == keyType){
         keyText = " ";
@@ -294,6 +315,7 @@ class _MultiLingualKeyboardState extends State<MultiLingualKeyboard> {
     }
   }
 
+  /// Listener handles text change event
   void _onTextChanged({required String changedText}){
     String currentText = widget.textEditingController.text;
     int cursorPosition = widget.textEditingController.selection.extentOffset;
@@ -326,6 +348,7 @@ class _MultiLingualKeyboardState extends State<MultiLingualKeyboard> {
         TextPosition(offset: cursorPosition,));
   }
 
+  /// Listener handles all key events
   void _onIconKeyPressed({required KeyTypes keyType}){
     if(keyType == KeyTypes.backSpace){
       _onBackSpacePressed();
@@ -361,6 +384,7 @@ class _MultiLingualKeyboardState extends State<MultiLingualKeyboard> {
     }
   }
 
+  /// Handles back pressed from keyboard
   void _onBackSpacePressed(){
     String currentString = widget.textEditingController.text;
     int cursorPosition = widget.textEditingController.selection.extentOffset;
@@ -391,6 +415,7 @@ class _MultiLingualKeyboardState extends State<MultiLingualKeyboard> {
     }
   }
 
+  /// Handles new line event
   void _onNewLineKeyPressed(){
     String currentString = widget.textEditingController.text;
     int cursorPosition = widget.textEditingController.selection.extentOffset;
@@ -407,6 +432,7 @@ class _MultiLingualKeyboardState extends State<MultiLingualKeyboard> {
     widget.textEditingController.selection = textSelection;
   }
 
+  /// Handles Keyboard language change.
   void _onKeyboardLanguageChange(){
     if(widget.currentKeyboardLanguage == KeyboardLanguages.symbolic
         && previousKeyboardLanguages != null && previousKeyboardType != null){

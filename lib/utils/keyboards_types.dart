@@ -1,4 +1,5 @@
 
+/// All Supported Keyboards Languages
 enum KeyboardLanguages {
   english,
   urdu,
@@ -7,6 +8,7 @@ enum KeyboardLanguages {
   // numeric,
 }
 
+/// All Supported Keyboards Type
 enum KeyboardsTypes {
   englishUpperCase,
   englishLowerCase,
@@ -19,7 +21,7 @@ enum KeyboardsTypes {
   symbolic2,
 }
 
-
+/// All Keys Type
 enum KeyTypes{
   changeLanguageKey,
   changeKeyboardKey,
@@ -32,7 +34,7 @@ enum KeyTypes{
   numericKeyboard,
 }
 
-
+/// Supported Keyboard Actions
 enum KeyboardAction {
   actionDone,
   actionNewLine,
