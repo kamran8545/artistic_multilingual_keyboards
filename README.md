@@ -18,11 +18,36 @@ TODO: Include short and useful examples for package users. Add longer examples
 to `/example` folder. 
 
 ```dart
-const like = 'sample';
+
+class _MyWidgetState extends State<MyWidget> {
+  
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      // body: Screen Design,
+      bottomSheet: KeyboardLayouts(
+        textEditingController: TextEditingController(),
+        focusNode: FocusNode(),
+        isKeyboardOpen: true,
+        enableLanguageButton: false,
+        keyElevation: 12,
+        keyShadowColor: Colors.black,
+        keyBorderRadius: BorderRadius.circular(10),
+        keyboardAction: KeyboardAction.actionNext,
+        currentKeyboardLanguage: KeyboardLanguages.english,
+      ),
+    );
+  }
+}
+
 ```
 
 
-##Contribution
+
+
+
+
+## Contribution
 
 You can contribute by:
 1. Use this package test and report any issues/bug found.
@@ -31,7 +56,7 @@ You can contribute by:
 [Feedback Form](https://docs.google.com/forms/d/e/1FAIpQLSdRY0yvBApd4QlUxTwEL4nycc8o-aNP70w9hPFrTgXzaeSH2w/viewform)
 
 
-##Developer
+## Developer
 
 [Kamran Khan](https://github.com/kamran8545)
 
