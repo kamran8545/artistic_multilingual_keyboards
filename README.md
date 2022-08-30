@@ -1,3 +1,5 @@
+### Artistic Multilingual Keyboards
+
 A fully customizable Flutter package which allows you to add multi lingual keyboard in your apps. 
 For now you can use English, Urdu and Sindhi, numeric and some special characters keyboards.
 You can customize keyboards according to your requirements.  
@@ -12,34 +14,46 @@ TODO: List what your package can do. Maybe include images, gifs, or videos.
 TODO: List prerequisites and provide or point to information on how to
 start using the package.
 
-## Usage
+## Installation
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+# Dependency
+
+Add the package as a dependency in your pubspec.yaml file.
+
+```yaml
+dependencies:
+  simple_grouped_listview: "^1.0.0"
+```
+
+Or Run the following command.
+
+```shell
+$ flutter pub add artistic_multilingual_keyboards
+```
+
+# Dependency
 
 ```dart
+import 'package:artistic_multilingual_keyboards/keyboards_layouts/keyboard_layouts.dart';
+```
 
-class _MyWidgetState extends State<MyWidget> {
-  
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      // body: Screen Design,
-      bottomSheet: KeyboardLayouts(
-        textEditingController: TextEditingController(),
-        focusNode: FocusNode(),
-        isKeyboardOpen: true,
-        enableLanguageButton: false,
-        keyElevation: 12,
-        keyShadowColor: Colors.black,
-        keyBorderRadius: BorderRadius.circular(10),
-        keyboardAction: KeyboardAction.actionNext,
-        currentKeyboardLanguage: KeyboardLanguages.english,
-      ),
-    );
-  }
-}
+## Usage
 
+Check complete example code from the "Example" Folder. 
+
+```dart
+  KeyboardLayouts(
+    textEditingController: TextEditingController(),
+    textEditingController: TextEditingController(),
+    focusNode: FocusNode(),
+    isKeyboardOpen: true,
+    enableLanguageButton: false,
+    keyElevation: 12,
+    keyShadowColor: Colors.black,
+    keyBorderRadius: BorderRadius.circular(10),
+    keyboardAction: KeyboardAction.actionNext,
+    currentKeyboardLanguage: KeyboardLanguages.english,  
+  );
 ```
 
 
@@ -60,8 +74,3 @@ You can contribute by:
 
 [Kamran Khan](https://github.com/kamran8545)
 
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
