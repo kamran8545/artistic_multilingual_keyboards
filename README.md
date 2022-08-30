@@ -1,4 +1,4 @@
-### Artistic Multilingual Keyboards
+# Artistic Multilingual Keyboards
 
 A fully customizable Flutter package which allows you to add multi lingual keyboard in your apps. 
 For now you can use English, Urdu and Sindhi, numeric and some special characters keyboards.
@@ -16,13 +16,13 @@ start using the package.
 
 ## Installation
 
-# Dependency
+### Dependency
 
 Add the package as a dependency in your pubspec.yaml file.
 
 ```yaml
 dependencies:
-  simple_grouped_listview: "^1.0.0"
+  artistic_multilingual_keyboards: "^1.0.0"
 ```
 
 Or Run the following command.
@@ -31,8 +31,8 @@ Or Run the following command.
 $ flutter pub add artistic_multilingual_keyboards
 ```
 
-# Dependency
-
+# Import
+Import following package in your code file.
 ```dart
 import 'package:artistic_multilingual_keyboards/keyboards_layouts/keyboard_layouts.dart';
 ```
