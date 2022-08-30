@@ -23,14 +23,16 @@ const like = 'sample';
 
 
 ##Contribution
+
 You can contribute by:
-1- Use this package test and report any issues/bug found.
-2- Contribute to package by adding more features.
-3- Fill the form and give us your suggestion or Feedback.
+1. Use this package test and report any issues/bug found.
+2. Contribute to package by adding more features.
+3. Fill the form and give us your suggestion or Feedback.
 [Feedback Form](https://docs.google.com/forms/d/e/1FAIpQLSdRY0yvBApd4QlUxTwEL4nycc8o-aNP70w9hPFrTgXzaeSH2w/viewform)
 
 
 ##Developer
+
 [Kamran Khan](https://github.com/kamran8545)
 
 ## Additional information
