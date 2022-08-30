@@ -9,8 +9,14 @@ class KeyboardLayouts extends StatefulWidget {
   late KeyboardsTypes currentKeyboardsType;
   /// Current keyboard Language
   KeyboardLanguages currentKeyboardLanguage;
+  /// Enable and Disable Language Button
+  final bool enableLanguageButton;
   /// Text Editing Controller of TextField
   final TextEditingController textEditingController;
+  /// Focus Node for TextField
+  final FocusNode focusNode;
+  /// Indicator to show Keyboard Status
+  bool isKeyboardOpen;
   /// Keys background color
   final Color keysBackgroundColor;
   /// Keyboard background color
@@ -25,12 +31,17 @@ class KeyboardLayouts extends StatefulWidget {
   final TextStyle keyTextStyle;
   /// Keyboard Action
   final KeyboardAction keyboardAction;
+  /// Keyboard Action Done Event
+  Function? keyboardActionDoneEvent;
+  /// Keyboard Action Next Event
+  Function? keyboardActionNextEvent;
   KeyboardLayouts({
     Key? key,
-    // this.keys:const [],
     required this.textEditingController,
-    // this.currentKeyboardsType/*: KeyboardsTypes.englishUpperCase*/,
+    required this.focusNode,
+    required this.isKeyboardOpen,
     this.currentKeyboardLanguage = KeyboardLanguages.english,
+    this.enableLanguageButton:false,
     this.keysBackgroundColor:Colors.white,
     this.keyboardBackgroundColor = Colors.white70,
     this.keyElevation:0,
@@ -38,6 +49,8 @@ class KeyboardLayouts extends StatefulWidget {
     this.keyBorderRadius,
     this.keyTextStyle : const TextStyle(color: Colors.black,fontSize: 15),
     this.keyboardAction:KeyboardAction.actionDone,
+    this.keyboardActionDoneEvent,
+    this.keyboardActionNextEvent,
   }) : super(key: key){
     /// Setting Keyboard type according to current language
     if(currentKeyboardLanguage == KeyboardLanguages.english){
@@ -61,6 +74,13 @@ class _KeyboardLayoutsState extends State<KeyboardLayouts> {
   KeyboardLanguages? previousKeyboardLanguages ;
 
   @override
+  void didUpdateWidget(KeyboardLayouts oldWidget) {
+    previousKeyboardType = null;
+    previousKeyboardLanguages = null;
+    setKeyboardKeys();
+  }
+
+  @override
   void initState() {
     super.initState();
     setKeyboardKeys(inverseKeys: false);
@@ -69,35 +89,49 @@ class _KeyboardLayoutsState extends State<KeyboardLayouts> {
   @override
   Widget build(BuildContext context) {
     /// Keyboard Design
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height*.3,
-      color: widget.keyboardBackgroundColor,
-      padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-      /// Checking if keys list is empty then don't show keyboard
-      child: keys.isNotEmpty?
-      /// Checking keyboard types whether its numeric or alphabetic
-        widget.currentKeyboardsType == KeyboardsTypes.numericKeyboard?
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              _getKeyboardRow(list: keys.sublist(0,4),horizontalPadding: 10),
-              _getKeyboardRow(list: keys.sublist(4,8),horizontalPadding: 10),
-              _getNumericKeyboardThirdRow(),
-              _getNumericKeyboardLastRow(),
-            ],
-          )
-          :Column(
-            children: [
-              _getKeyboardRow(list: keys.sublist(0,10),horizontalPadding: 10),
-              _getKeyboardRow(list: keys.sublist(10,19),horizontalPadding: 20),
-              _getKeyboardThirdRow(),
-              _getKeyboardLastRow(),
-            ],
-          ):
+    return widget.isKeyboardOpen?WillPopScope(
+      onWillPop: ()async{
+        if(widget.isKeyboardOpen){
+          setState(() {
+            widget.isKeyboardOpen = false;
+            if(widget.focusNode.hasFocus){
+              widget.focusNode.unfocus();
+            }
+          });
+          return false;
+        }
+        return true;
+      },
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height*.3,
+        color: widget.keyboardBackgroundColor,
+        padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+        /// Checking if keys list is empty then don't show keyboard
+        child: keys.isNotEmpty?
+        /// Checking keyboard types whether its numeric or alphabetic
+          widget.currentKeyboardsType == KeyboardsTypes.numericKeyboard?
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                _getKeyboardRow(list: keys.sublist(0,4),horizontalPadding: 10),
+                _getKeyboardRow(list: keys.sublist(4,8),horizontalPadding: 10),
+                _getNumericKeyboardThirdRow(),
+                _getNumericKeyboardLastRow(),
+              ],
+            )
+            :Column(
+              children: [
+                _getKeyboardRow(list: keys.sublist(0,10),horizontalPadding: 10),
+                _getKeyboardRow(list: keys.sublist(10,19),horizontalPadding: 20),
+                _getKeyboardThirdRow(),
+                _getKeyboardLastRow(),
+              ],
+            ):
 
-      const Center(child: Text("No alphabet found for keyboard")),
-    );
+        const Center(child: Text("No alphabet found for keyboard")),
+      ),
+    ):const SizedBox(height: 0,width: 0,);
   }
 
   /// Setting Keyboard Keys according to selected language
@@ -185,7 +219,8 @@ class _KeyboardLayoutsState extends State<KeyboardLayouts> {
       child: Row(
         children: [
           _getKey(keyText: keyboardLastRow[0],buttonFlex: 2,keyType: KeyTypes.numericKeyboard),
-          _getKey(keyText: keyboardLastRow[1],buttonFlex: 2,keyType: KeyTypes.changeLanguageKey),
+          (widget.enableLanguageButton)?_getKey(keyText: keyboardLastRow[1],buttonFlex: 2,keyType: KeyTypes.changeLanguageKey)
+              :const SizedBox(height: 0,),
           _getKey(keyText: keyboardLastRow[2],buttonFlex: 7,keyType: KeyTypes.spaceKey),
           _getKey(keyText: keyboardLastRow[3],buttonFlex: 2,
             keyType: widget.keyboardAction == KeyboardAction.actionNext?KeyTypes.nextKey:
@@ -263,7 +298,7 @@ class _KeyboardLayoutsState extends State<KeyboardLayouts> {
               keyType == KeyTypes.changeLanguageKey?CupertinoIcons.globe:
               keyType == KeyTypes.backSpace?CupertinoIcons.delete_left:
               Icons.done,
-            size: 23,
+            size: 22,
             color: widget.keyTextStyle.color,
           ),
           onPressed: (keyType == KeyTypes.textKey && keyText.isEmpty)?null:(){
@@ -380,6 +415,17 @@ class _KeyboardLayoutsState extends State<KeyboardLayouts> {
       });
     }else if(keyType == KeyTypes.newLineKey){
       _onNewLineKeyPressed();
+    }else if(keyType == KeyTypes.doneKey){
+      if(widget.keyboardActionDoneEvent != null){
+        widget.keyboardActionDoneEvent!();
+      }
+      if(widget.focusNode.hasFocus){
+        widget.focusNode.unfocus();
+      }
+    }else if(keyType == KeyTypes.nextKey){
+      if(widget.keyboardActionNextEvent != null){
+        widget.keyboardActionNextEvent!();
+      }
     }
   }
 

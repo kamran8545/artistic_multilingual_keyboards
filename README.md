@@ -1,18 +1,7 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+A fully customizable Flutter package which allows you to add multi lingual keyboard in your apps. 
+For now you can use English, Urdu and Sindhi, numeric and some special characters keyboards.
+You can customize keyboards according to your requirements.  
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
 
 ## Features
 
@@ -31,6 +20,18 @@ to `/example` folder.
 ```dart
 const like = 'sample';
 ```
+
+
+##Contribution
+You can contribute by:
+1- Use this package test and report any issues/bug found.
+2- Contribute to package by adding more features.
+3- Fill the form and give us your suggestion or Feedback.
+[Feedback Form](https://docs.google.com/forms/d/e/1FAIpQLSdRY0yvBApd4QlUxTwEL4nycc8o-aNP70w9hPFrTgXzaeSH2w/viewform)
+
+
+##Developer
+[Kamran Khan](https://github.com/kamran8545)
 
 ## Additional information
 
