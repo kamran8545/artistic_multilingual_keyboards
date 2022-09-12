@@ -39,7 +39,7 @@ You can customize keyboards as you want them.
 ### Keyboard Customized Designs
 
 <img src="./keyboard_design/keyboard-design-1.jpeg" width="280" height="500"> |
-<img src="./keyboard_design/Keyboard-design-2.jpeg.jpeg" width="280" height="500"> |
+<img src=".keyboard_design/Keyboard-design-2.jpeg.jpeg" width="280" height="500"> |
 <img src="./keyboard_design/Keyboard-design-3.jpeg" width="280" height="500"> |
 <img src="./keyboard_design/keyboard-design-4.jpeg" width="280" height="500"> |
 <img src="./keyboard_design/keyboard-design-5.jpeg" width="280" height="500"> |
