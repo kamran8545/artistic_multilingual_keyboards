@@ -26,8 +26,8 @@ You can customize keyboards as you want them.
 
 ### Sindhi Keyboards
 
-<img src="./keyboard_types/keyboard-type-sindhi-primary.jpeg" width="280" height="500"> 
-<img src="./keyboard_types/keyboard-type-sindhi-secondary.jpeg" width="280" height="500">
+<span><img src="./keyboard_types/keyboard-type-sindhi-primary.jpeg" width="280" height="500">
+<img src="./keyboard_types/keyboard-type-sindhi-secondary.jpeg" width="280" height="500"></span>
 
 
 ### Numeric & Symbolic Keyboards
