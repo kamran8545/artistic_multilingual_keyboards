@@ -14,13 +14,24 @@ You can customize keyboards as you want them.
 
 ### English Keyboards 
 
-English Capital | English Small
-
 <img src="./keyboard_types/Keyboard-type-english-capital.jpeg" width="280" height="500"> |
 <img src="./keyboard_types/keyboard-type-eng-small.jpeg" width="280" height="500">
 
-[comment]: <> (![Alt text]&#40;./keyboard_types/Keyboard-type-english-capital.jpeg&#41;)
-[comment]: <> (![Alt text]&#40;./keyboard_types/keyboard-type-eng-small.jpeg&#41;)
+### Urdu Keyboards 
+
+<img src="./keyboard_types/Keyboard-type-urdu-primary.jpeg" width="280" height="500"> |
+<img src="./keyboard_types/keyboard-type-urdu-secondary.jpeg" width="280" height="500">
+
+### Sindhi Keyboards
+
+<img src="./keyboard_types/Keyboard-type-sindhi-primary.jpeg" width="280" height="500"> |
+<img src="./keyboard_types/keyboard-type-sindhi-secondary.jpeg" width="280" height="500">
+
+### Numeric & Symbolic Keyboards
+
+<img src="./keyboard_types/Keyboard-type-symbolic.jpeg" width="280" height="500"> |
+<img src="./keyboard_types/keyboard-type-symbolic-secondary.jpeg" width="280" height="500">
+
 
 
 ## Installation
