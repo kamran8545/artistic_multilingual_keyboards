@@ -7,7 +7,8 @@ You can customize keyboards as you want them.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+### Example
+![Alt text](./screen_recording/screen_recording.gif)
 
 
 ## Installation
