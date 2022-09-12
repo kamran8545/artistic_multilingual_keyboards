@@ -8,7 +8,7 @@ You can customize keyboards as you want them.
 ## Features
 
 ### Example
-<img src="./screen_recording/screen_recording.gif" width="200" height="300">
+<img src="./screen_recording/screen_recording.gif" width="300" height="500">
 
 [comment]: <> (![Alt text]&#40;./screen_recording/screen_recording.gif =200x300&#41;)
 
