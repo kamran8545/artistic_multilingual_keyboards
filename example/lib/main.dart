@@ -144,9 +144,9 @@ class _MyWidgetState extends State<MyWidget> {
         // keyboardBackgroundColor: Colors.green,
         // keysBackgroundColor: Colors.red,
         // keyTextStyle: const TextStyle(color: Colors.white),
-        keyElevation: 12,
+        // keyElevation: 10,
         keyShadowColor: Colors.black,
-        keyBorderRadius: BorderRadius.circular(10),
+        keyBorderRadius: BorderRadius.circular(8),
         keyboardAction: currentKeyboardAction,
         currentKeyboardLanguage: currentKeyboardLanguage,
         keyboardActionNextEvent: (){

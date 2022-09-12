@@ -304,14 +304,40 @@ class _KeyboardLayoutsState extends State<KeyboardLayouts> {
           onPressed: (keyType == KeyTypes.textKey && keyText.isEmpty)?null:(){
             _onKeyPressed(keyText: keyText, keyType: keyType);
           },
-          style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(borderRadius: widget.keyBorderRadius??BorderRadius.circular(0)),
-              elevation: widget.keyElevation,
-              shadowColor: widget.keyShadowColor,
-              primary: widget.keysBackgroundColor,
-              maximumSize: Size.infinite,
+          style: ButtonStyle(
+            overlayColor: MaterialStateProperty.resolveWith<Color?>(
+                    (Set<MaterialState> states) {
+                  if (states.contains(MaterialState.pressed) && widget.keyTextStyle.color != null) {
+                    return widget.keyTextStyle.color!.withAlpha(30);
+                  }
+                  return null;
+                }),
+            backgroundColor:MaterialStateProperty.resolveWith<Color?>(
+                    (Set<MaterialState> states) {
+                  return widget.keysBackgroundColor;
+                }),
+            shape:  MaterialStateProperty.resolveWith<OutlinedBorder>(
+                    (Set<MaterialState> states) {
+                  return RoundedRectangleBorder(borderRadius: widget.keyBorderRadius??BorderRadius.circular(0));
+                }),
+              elevation: MaterialStateProperty.resolveWith<double>(
+                      (Set<MaterialState> states) {
+                    return widget.keyElevation;
+                  }),
+              shadowColor: MaterialStateProperty.resolveWith<Color?>(
+                    (Set<MaterialState> states) {
+                      return widget.keyShadowColor;
+                    }),
+              // primary: widget.keysBackgroundColor,
+              maximumSize: MaterialStateProperty.resolveWith<Size>(
+                      (Set<MaterialState> states) {
+                    return Size.infinite;
+                  }),
               // minimumSize: Size.zero, // Set this
-              padding: const EdgeInsets.symmetric(horizontal: 0,vertical: 12),
+              padding: MaterialStateProperty.resolveWith<EdgeInsetsGeometry>(
+                      (Set<MaterialState> states) {
+                    return const EdgeInsets.symmetric(horizontal: 0,vertical: 12);
+                  }),
               // tapTargetSize: MaterialTapTargetSize.padded// and this
           ),
         ),
