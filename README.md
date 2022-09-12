@@ -8,7 +8,7 @@ You can customize keyboards as you want them.
 ## Features
 
 ### Example
-![Alt text](./screen_recording/screen_recording.gif){height="200px" width="300px"}
+![Alt text](./screen_recording/screen_recording.gif){height=200 width=300}
 
 
 ## Installation
