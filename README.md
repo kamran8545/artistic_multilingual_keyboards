@@ -8,7 +8,11 @@ You can customize keyboards as you want them.
 ## Features
 
 ### Example
-![Alt text](./screen_recording/screen_recording.gif){height=200 width=300}
+![Alt text](./screen_recording/screen_recording.gif)
+
+### English Keyobards
+![Alt text](./keyboard_types/Keyboard-type-english-capital.jpeg)
+![Alt text](./keyboard_types/keyboard-type-eng-small.jpeg)
 
 
 ## Installation
