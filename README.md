@@ -14,14 +14,18 @@ You can customize keyboards as you want them.
 
 ### English Keyboards 
 
-<img src="./keyboard_types/Keyboard-type-english-capital.jpeg" width="280" height="500"> |
+<span>
+<img src="./keyboard_types/Keyboard-type-english-capital.jpeg" width="280" height="500"> 
 <img src="./keyboard_types/keyboard-type-eng-small.jpeg" width="280" height="500">
+</span>
+
 
 
 ### Urdu Keyboards
 
-<img src="./keyboard_types/keyboard-type-urdu-primary.jpeg" width="280" height="500"> |
-<img src="./keyboard_types/keyboard-type-urdu-secondary.jpeg" width="280" height="500">
+<span>
+<img src="./keyboard_types/keyboard-type-urdu-primary.jpeg" width="280" height="500"> 
+<img src="./keyboard_types/keyboard-type-urdu-secondary.jpeg" width="280" height="500"></span>
 
 
 ### Sindhi Keyboards
@@ -32,19 +36,21 @@ You can customize keyboards as you want them.
 
 ### Numeric & Symbolic Keyboards
 
-<img src="./keyboard_types/keyboard-type-symbolic.jpeg" width="280" height="500"> |
-<img src="./keyboard_types/keyboard-type-symbolic-secondary.jpeg" width="280" height="500">
+<span>
+<img src="./keyboard_types/keyboard-type-symbolic.jpeg" width="280" height="500"> 
+<img src="./keyboard_types/keyboard-type-symbolic-secondary.jpeg" width="280" height="500"></span>
 
 
 ### Keyboard Customized Designs
 
-<img src="./keyboard_design/keyboard-design-1.jpeg" width="280" height="500"> |
-<img src=".keyboard_design/Keyboard-design-2.jpeg.jpeg" width="280" height="500"> |
-<img src="./keyboard_design/Keyboard-design-3.jpeg" width="280" height="500"> |
-<img src="./keyboard_design/keyboard-design-4.jpeg" width="280" height="500"> |
-<img src="./keyboard_design/keyboard-design-5.jpeg" width="280" height="500"> |
-<img src="./keyboard_design/Keyboard-design-6.jpeg" width="280" height="500"> |
-<img src="./keyboard_design/keyboard-design-7.jpeg" width="280" height="500"> 
+<span>
+<img src="./keyboard_design/keyboard-design-1.jpeg" width="280" height="500"> 
+<img src=".keyboard_design/Keyboard-design-2.jpeg.jpeg" width="280" height="500"> 
+<img src="./keyboard_design/Keyboard-design-3.jpeg" width="280" height="500"> 
+<img src="./keyboard_design/keyboard-design-4.jpeg" width="280" height="500"> 
+<img src="./keyboard_design/keyboard-design-5.jpeg" width="280" height="500"> 
+<img src="./keyboard_design/Keyboard-design-6.jpeg" width="280" height="500"> 
+<img src="./keyboard_design/keyboard-design-7.jpeg" width="280" height="500"></span> 
 
 
 
