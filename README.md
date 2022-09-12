@@ -17,19 +17,19 @@ You can customize keyboards as you want them.
 <img src="./keyboard_types/Keyboard-type-english-capital.jpeg" width="280" height="500"> 
 <img src="./keyboard_types/keyboard-type-eng-small.jpeg" width="280" height="500">
 
-### Urdu Keyboards 
+### Urdu Keyboards
 
-<img src="./keyboard_types/Keyboard-type-urdu-primary.jpeg" width="280" height="500"> 
+<img src="./keyboard_types/keyboard-type-urdu-primary.jpeg" width="280" height="500"> 
 <img src="./keyboard_types/keyboard-type-urdu-secondary.jpeg" width="280" height="500">
 
 ### Sindhi Keyboards
 
-<img src="./keyboard_types/Keyboard-type-sindhi-primary.jpeg" width="280" height="500"> 
+<img src="./keyboard_types/keyboard-type-sindhi-primary.jpeg" width="280" height="500"> 
 <img src="./keyboard_types/keyboard-type-sindhi-secondary.jpeg" width="280" height="500">
 
 ### Numeric & Symbolic Keyboards
 
-<img src="./keyboard_types/Keyboard-type-symbolic.jpeg" width="280" height="500"> 
+<img src="./keyboard_types/keyboard-type-symbolic.jpeg" width="280" height="500"> 
 <img src="./keyboard_types/keyboard-type-symbolic-secondary.jpeg" width="280" height="500">
 
 
