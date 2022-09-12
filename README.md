@@ -8,15 +8,16 @@ You can customize keyboards as you want them.
 ## Features
 
 ### Example
-<img src="./screen_recording/screen_recording.gif" width="400" height="550">
+<img src="./screen_recording/screen_recording.gif" width="280" height="500">
 
 [comment]: <> (![Alt text]&#40;./screen_recording/screen_recording.gif =200x300&#41;)
 
 ### English Keyboards 
 
-#### English Capital | #### English Small
-<img src="./keyboard_types/Keyboard-type-english-capital.jpeg" width="400" height="550"> |
-<img src="./keyboard_types/keyboard-type-eng-small.jpeg" width="400" height="550">
+English Capital | English Small
+
+<img src="./keyboard_types/Keyboard-type-english-capital.jpeg" width="280" height="500"> |
+<img src="./keyboard_types/keyboard-type-eng-small.jpeg" width="280" height="500">
 
 [comment]: <> (![Alt text]&#40;./keyboard_types/Keyboard-type-english-capital.jpeg&#41;)
 [comment]: <> (![Alt text]&#40;./keyboard_types/keyboard-type-eng-small.jpeg&#41;)
