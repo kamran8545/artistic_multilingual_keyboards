@@ -1,6 +1,6 @@
 name: artistic_multilingual_keyboards
 description: A fully customizable Flutter package which allows you to add multi lingual keyboard in your apps. For now you can use English, Urdu and Sindhi keyboards.
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/kamran8545/artistic_multilingual_keyboards
 repository: https://github.com/kamran8545/artistic_multilingual_keyboards
 issue_tracker: https://github.com/kamran8545/artistic_multilingual_keyboards/issues
