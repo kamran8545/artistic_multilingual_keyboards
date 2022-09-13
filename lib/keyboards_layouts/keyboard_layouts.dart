@@ -41,14 +41,14 @@ class KeyboardLayouts extends StatefulWidget {
     required this.focusNode,
     required this.isKeyboardOpen,
     this.currentKeyboardLanguage = KeyboardLanguages.english,
-    this.enableLanguageButton:false,
-    this.keysBackgroundColor:Colors.white,
+    this.enableLanguageButton =false,
+    this.keysBackgroundColor =Colors.white,
     this.keyboardBackgroundColor = Colors.white70,
-    this.keyElevation:0,
-    this.keyShadowColor:Colors.black,
+    this.keyElevation =0,
+    this.keyShadowColor =Colors.black,
     this.keyBorderRadius,
-    this.keyTextStyle : const TextStyle(color: Colors.black,fontSize: 15),
-    this.keyboardAction:KeyboardAction.actionDone,
+    this.keyTextStyle  = const TextStyle(color: Colors.black,fontSize: 15),
+    this.keyboardAction =KeyboardAction.actionDone,
     this.keyboardActionDoneEvent,
     this.keyboardActionNextEvent,
   }) : super(key: key){
@@ -75,6 +75,7 @@ class _KeyboardLayoutsState extends State<KeyboardLayouts> {
 
   @override
   void didUpdateWidget(KeyboardLayouts oldWidget) {
+    super.didUpdateWidget(oldWidget);
     previousKeyboardType = null;
     previousKeyboardLanguages = null;
     setKeyboardKeys();
