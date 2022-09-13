@@ -30,13 +30,13 @@ class MyWidget extends StatefulWidget {
 }
 
 class _MyWidgetState extends State<MyWidget> {
-  TextEditingController textEditingController = TextEditingController();
-  TextEditingController textEditingController1 = TextEditingController();
-  TextEditingController textEditingController2 = TextEditingController();
+  TextEditingController englishTEController = TextEditingController();
+  TextEditingController urduTEController = TextEditingController();
+  TextEditingController sindhiTEController = TextEditingController();
 
-  FocusNode focusNode = FocusNode();
-  FocusNode focusNode1 = FocusNode();
-  FocusNode focusNode2 = FocusNode();
+  FocusNode engFocusNode = FocusNode();
+  FocusNode urduFocusNode = FocusNode();
+  FocusNode sindhiFocusNode = FocusNode();
 
   late TextEditingController currentKeyboardTEController;
   late FocusNode currentKeyboardFocusNode;
@@ -47,15 +47,15 @@ class _MyWidgetState extends State<MyWidget> {
 
   @override
   void initState() {
-    currentKeyboardTEController = textEditingController;
-    currentKeyboardFocusNode = focusNode;
+    currentKeyboardTEController = englishTEController;
+    currentKeyboardFocusNode = engFocusNode;
 
-    focusNode.addListener(() {
+    engFocusNode.addListener(() {
       setState(() {
-        if(focusNode.hasFocus){
-          currentKeyboardFocusNode = focusNode;
+        if(engFocusNode.hasFocus){
+          currentKeyboardFocusNode = engFocusNode;
           currentKeyboardAction = KeyboardAction.actionNext;
-          currentKeyboardTEController = textEditingController;
+          currentKeyboardTEController = englishTEController;
           currentKeyboardLanguage = KeyboardLanguages.english;
           _isKeyboardOpen = true;
         }else{
@@ -64,12 +64,12 @@ class _MyWidgetState extends State<MyWidget> {
       });
     });
 
-    focusNode1.addListener(() {
+    urduFocusNode.addListener(() {
       setState(() {
-        if(focusNode1.hasFocus){
-          currentKeyboardFocusNode = focusNode1;
+        if(urduFocusNode.hasFocus){
+          currentKeyboardFocusNode = urduFocusNode;
           currentKeyboardAction = KeyboardAction.actionNext;
-          currentKeyboardTEController = textEditingController1;
+          currentKeyboardTEController = urduTEController;
           currentKeyboardLanguage = KeyboardLanguages.urdu;
           _isKeyboardOpen = true;
         }else{
@@ -78,12 +78,12 @@ class _MyWidgetState extends State<MyWidget> {
       });
     });
 
-    focusNode2.addListener(() {
+    sindhiFocusNode.addListener(() {
       setState(() {
-        if(focusNode2.hasFocus){
-          currentKeyboardFocusNode = focusNode2;
+        if(sindhiFocusNode.hasFocus){
+          currentKeyboardFocusNode = sindhiFocusNode;
           currentKeyboardAction = KeyboardAction.actionDone;
-          currentKeyboardTEController = textEditingController2;
+          currentKeyboardTEController = sindhiTEController;
           currentKeyboardLanguage = KeyboardLanguages.sindhi;
           _isKeyboardOpen = true;
         }else{
@@ -105,8 +105,8 @@ class _MyWidgetState extends State<MyWidget> {
               const SizedBox(height: 100,),
               const Text("English"),
               TextField(
-                controller: textEditingController,
-                focusNode: focusNode,
+                controller: englishTEController,
+                focusNode: engFocusNode,
                 readOnly: true,
                 showCursor: true,
                 textAlign: TextAlign.start,
@@ -115,8 +115,8 @@ class _MyWidgetState extends State<MyWidget> {
               const SizedBox(height: 100,),
               const Text("Urdu"),
               TextField(
-                controller: textEditingController1,
-                focusNode: focusNode1,
+                controller: urduTEController,
+                focusNode: urduFocusNode,
                 textDirection: TextDirection.ltr,
                 readOnly: true,
                 showCursor: true,
@@ -126,8 +126,8 @@ class _MyWidgetState extends State<MyWidget> {
               const SizedBox(height: 100,),
               const Text("Sindhi"),
               TextField(
-                controller: textEditingController2,
-                focusNode: focusNode2,
+                controller: sindhiTEController,
+                focusNode: sindhiFocusNode,
                 readOnly: true,
                 showCursor: true,
                 textAlign: TextAlign.end,
@@ -150,12 +150,12 @@ class _MyWidgetState extends State<MyWidget> {
         keyboardAction: currentKeyboardAction,
         currentKeyboardLanguage: currentKeyboardLanguage,
         keyboardActionNextEvent: (){
-          if(focusNode.hasFocus){
-            focusNode.unfocus();
-            focusNode1.requestFocus();
-          }else if(focusNode1.hasFocus){
-            focusNode1.unfocus();
-            focusNode2.requestFocus();
+          if(engFocusNode.hasFocus){
+            engFocusNode.unfocus();
+            urduFocusNode.requestFocus();
+          }else if(urduFocusNode.hasFocus){
+            urduFocusNode.unfocus();
+            sindhiFocusNode.requestFocus();
           }
         },
         keyboardActionDoneEvent: (){
