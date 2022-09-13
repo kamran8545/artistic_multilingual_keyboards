@@ -8,7 +8,7 @@ You can customize keyboards as you want them.
 ## Features
 
 ### Example
-<img src="https://user-images.githubusercontent.com/28790321/189832513-7a6d2a14-f12b-4152-8bf1-6a3acf6b61f1.png" width="280" height="500">
+<img src="https://user-images.githubusercontent.com/28790321/189836219-6cd22737-e23e-495f-8f4f-5b6cdf1116d4.gif" width="280" height="500">
 
 [comment]: <> (![Alt text]&#40;./screen_recording/screen_recording.gif =200x300&#41;)
 
