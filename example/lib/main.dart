@@ -47,6 +47,7 @@ class _MyWidgetState extends State<MyWidget> {
 
   @override
   void initState() {
+    super.initState();
     currentKeyboardTEController = englishTEController;
     currentKeyboardFocusNode = engFocusNode;
 
@@ -107,6 +108,7 @@ class _MyWidgetState extends State<MyWidget> {
               TextField(
                 controller: englishTEController,
                 focusNode: engFocusNode,
+                textDirection: TextDirection.ltr,
                 readOnly: true,
                 showCursor: true,
                 textAlign: TextAlign.start,
@@ -117,10 +119,10 @@ class _MyWidgetState extends State<MyWidget> {
               TextField(
                 controller: urduTEController,
                 focusNode: urduFocusNode,
-                textDirection: TextDirection.ltr,
+                textDirection: TextDirection.rtl,
                 readOnly: true,
                 showCursor: true,
-                textAlign: TextAlign.end,
+                textAlign: TextAlign.start,
                 // scrollController: _scrollController,
               ),
               const SizedBox(height: 100,),
@@ -130,7 +132,8 @@ class _MyWidgetState extends State<MyWidget> {
                 focusNode: sindhiFocusNode,
                 readOnly: true,
                 showCursor: true,
-                textAlign: TextAlign.end,
+                textAlign: TextAlign.start,
+                textDirection: TextDirection.rtl,
               ),
             ],
           ),

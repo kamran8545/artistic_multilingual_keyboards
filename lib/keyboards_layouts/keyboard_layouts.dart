@@ -86,12 +86,14 @@ class _KeyboardLayoutsState extends State<KeyboardLayouts> {
   List<String> keys = [];
   KeyboardsTypes? previousKeyboardType;
   KeyboardLanguages? previousKeyboardLanguages;
+  String numericKeyText = "123";
 
   @override
   void didUpdateWidget(KeyboardLayouts oldWidget) {
     super.didUpdateWidget(oldWidget);
     previousKeyboardType = null;
     previousKeyboardLanguages = null;
+    numericKeyText = "123";
     setKeyboardKeys();
   }
 
@@ -255,7 +257,7 @@ class _KeyboardLayoutsState extends State<KeyboardLayouts> {
 
   /// Returns Last Row of All Keyboards
   Widget _getKeyboardLastRow() {
-    List<String> keyboardLastRow = ["123", "Languages", "Space"];
+    List<String> keyboardLastRow = [numericKeyText, "Languages", "Space"];
     if (widget.keyboardAction == KeyboardAction.actionDone) {
       keyboardLastRow.add("Done");
     } else if (widget.keyboardAction == KeyboardAction.actionNewLine) {
@@ -334,7 +336,7 @@ class _KeyboardLayoutsState extends State<KeyboardLayouts> {
         child: Row(
           children: [
             _getKey(
-              keyText: "123",
+              keyText: numericKeyText,
               keyType: KeyTypes.numericKeyboard,
               buttonFlex: 2,
             ),
@@ -468,6 +470,30 @@ class _KeyboardLayoutsState extends State<KeyboardLayouts> {
     return "";
   }
 
+  /// Returns Key Text for numeric key keyboard
+  String _getNumericKeyText() {
+    if (previousKeyboardLanguages == KeyboardLanguages.urdu &&
+        previousKeyboardType == KeyboardsTypes.urduKeyboard1) {
+      return "ا ب پ";
+    } else if (previousKeyboardLanguages == KeyboardLanguages.urdu &&
+        previousKeyboardType == KeyboardsTypes.urduKeyboard2) {
+      return "ژ ڑ ذ";
+    } else if (previousKeyboardLanguages == KeyboardLanguages.sindhi &&
+        previousKeyboardType == KeyboardsTypes.sindhiKeyboard1) {
+      return "ا ب پ";
+    } else if (previousKeyboardLanguages == KeyboardLanguages.sindhi &&
+        previousKeyboardType == KeyboardsTypes.sindhiKeyboard2) {
+      return "ڙ ڏ ڊ";
+    } else if (previousKeyboardLanguages == KeyboardLanguages.english &&
+        previousKeyboardType == KeyboardsTypes.englishLowerCase) {
+      return "ABC";
+    } else if (previousKeyboardLanguages == KeyboardLanguages.english &&
+        previousKeyboardType == KeyboardsTypes.englishUpperCase) {
+      return "abc";
+    }
+    return "123";
+  }
+
   /// Listener handles key pressed event
   void _onKeyPressed({
     required String keyText,
@@ -508,7 +534,7 @@ class _KeyboardLayoutsState extends State<KeyboardLayouts> {
     widget.textEditingController.text = completeText;
 
     if (currentText.length != widget.textEditingController.text.length) {
-      cursorPosition++;
+      cursorPosition += changedText.length;
     }
     if (cursorPosition > completeText.length) {
       cursorPosition = completeText.length;
@@ -542,12 +568,14 @@ class _KeyboardLayoutsState extends State<KeyboardLayouts> {
           previousKeyboardLanguages = widget.currentKeyboardLanguage;
           widget.currentKeyboardsType = KeyboardsTypes.symbolic2;
           widget.currentKeyboardLanguage = KeyboardLanguages.symbolic;
+          numericKeyText = _getNumericKeyText();
         } else {
           widget.currentKeyboardsType = previousKeyboardType!;
           previousKeyboardType = null;
           // keys = englishUpperCaseAlphabetsQWERTY;
           widget.currentKeyboardLanguage = previousKeyboardLanguages!;
           previousKeyboardLanguages = null;
+          numericKeyText = "123";
         }
         setKeyboardKeys(inverseKeys: false);
       });
